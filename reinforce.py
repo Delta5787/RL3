@@ -42,6 +42,7 @@ class REINFORCE_Policy():
         self.regressor = NormalDistribParam(inChannel)
         self.lr = lr
         self.optimizer = torch.optim.AdamW(self.regressor.parameters(), lr=self.lr)
+        self.scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=0.9)
     def load(self, model):
         weights = torch.load(model)
         self.regressor.load_state_dict(weights["model_state_dict"])
@@ -60,7 +61,7 @@ class REINFORCE_Agent():
         p = distrib.log_prob(action)
 
         return action, p
-    def update(self,policy:REINFORCE_Policy, nEpisode:int, env:gym.Env, plot=True):
+    def update(self,policy:REINFORCE_Policy, nEpisode:int, frequenceUpdate:int, env:gym.Env, plot=True):
         probs = []
         rewards = []
         loss = 0
@@ -101,6 +102,9 @@ class REINFORCE_Agent():
                 loss.backward()
                 policy.optimizer.step()
                 loss = 0
+                if(episode%(frequenceUpdate*5)==0):
+                  print("lr reduce")
+                  policy.scheduler.step()
                 print(f"Episode : {episode}/{nEpisode} Average Reward : {np.mean(avg_rewards)}")
                 probs = []
                 rewards = []

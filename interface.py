@@ -22,9 +22,9 @@ class Controller():
             if load:
                 self.policy.load("weights/"+reinforce.lower()+"/"+self.envName+self.algo+"save.pt")
 
-    def train(self, savePath=None, plot=True):
-        if(self.algo ==  reinforce):
-            self.agent.update(self.policy, 10000, self.env, plot)
+    def train(self, nEpisode=30000, frequenceUpdate=500,savePath=None, plot=True):
+        if(self.algo ==  "REINFORCE"):
+            self.agent.update(self.policy, nEpisode, frequenceUpdate, self.env, plot)
             if not (savePath is None):
                 torch.save({"model_state_dict":self.policy.regressor.state_dict(), "optimizer":self.policy.optimizer.state_dict()}, savePath+self.envName+self.algo+"save.pt")
     def test(self):
@@ -35,5 +35,5 @@ class Controller():
       print(f"Total reward {r} for {s} steps")
 
 if __name__ == "__main__":
-    controller = Controller(envName=invertedPendulum, load=True, render_mode="human")
+    controller = Controller(envName=doublePendulum, load=True, render_mode="human")
     controller.test()
