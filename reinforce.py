@@ -128,22 +128,24 @@ class REINFORCE_Agent():
             plt.ylabel("Length of an episode")
             plt.title("Length of each episode episode")
 
-    def test(self, policy:REINFORCE_Policy, env:gym.Env):
-
-      running = True
-      state, _ = env.reset()
-      policy.regressor.eval()
-      reward = 0
-      step = 0
-
-      while running:
-
-        state = torch.tensor(np.array([state]))
-        action, _ = self.choose_action(policy=policy, state=state)
-        state, r, terminated, truncated, _ = env.step(action)
-        reward += r
-        step += 1
-
-        running = not (terminated or truncated)
+    def test(self, objects:list[REINFORCE_Policy], env:gym.Env):
         
-      return reward, step
+        policy = objects[0]
+
+        running = True
+        state, _ = env.reset()
+        policy.regressor.eval()
+        reward = 0
+        step = 0
+
+        while running:
+
+            state = torch.tensor(np.array([state]))
+            action, _ = self.choose_action(policy=policy, state=state)
+            state, r, terminated, truncated, _ = env.step(action)
+            reward += r
+            step += 1
+
+            running = not (terminated or truncated)
+            
+        return reward, step
