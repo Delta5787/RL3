@@ -33,7 +33,7 @@ The class Controller allows interaction with the gymnasium environments "Inverte
     >> N : number of episode to train on
     >> M : how often to update the weights of the policy
 
-(for "InvertedPendulum-v4", the weights are pretrained for N = 30000 and M = 500)
+(the networks are pretrained for N = 29000 and M = 250)
 
 ### PPO
 

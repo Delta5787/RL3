@@ -5,3 +5,10 @@ gymnasium["mujoco"]
 matplotlib
 os
 random
+math
+time
+sklearn
+tensorflow
+warnings
+scipy
+joblib
