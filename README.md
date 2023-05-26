@@ -1,6 +1,11 @@
+## Usage
+
+interface.py contains a main block of code with commented lines you can simply choose which model to visualize by uncommenting those lines.
+
 ## Presentations
 
 The class Controller allows interaction with the gymnasium environments "InvertedPendulum-v4", "InvertedDoublePendulum-v4" with policies learned with FQI, REINFORCE or PPO (clipped version).
+Only REINFORCE and fittedQ were "successfully" implemented. Provided they're not optimal as training could go much longer, they serve as proof of concepts for the project.
 
 ## Controller details
 
@@ -24,6 +29,9 @@ The class Controller allows interaction with the gymnasium environments "Inverte
 ## Algorithms Details 
 
 ### FQI
+
+> fitted_Q_function trains the model on a given set of element
+> fq1 and fq2 are examples of execution <br>
 
 ### REINFORCE
 
